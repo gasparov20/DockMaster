@@ -22,7 +22,7 @@ function addName() {
       mins = "0" + mins;
     let time = today.getHours() + ":" + mins;
     $(this).before(time); // Add check-out time
-    $(this).hide();       // and hide button
+    $(this).hide(); // and hide button
     // Add HTML to create check-in button (after checking out) using the cell ID created above
     $("#" + $(this).prop("id") + "row").html("<button id='" + $(this).prop("id") + "rowIn" + "' class='btn btn-light'>Check In</button>");
 
@@ -39,7 +39,7 @@ function addName() {
   })
 
   // Add click listener for remove row button
-  $("#remove" + tableIndex).click(function () {
+  $("#remove" + tableIndex).click(function() {
     if (confirm("Are you sure you want to remove " + $(this).parent + "?"))
       $(this).parent().parent().remove();
   })
@@ -73,7 +73,7 @@ function addNameTest(name) {
     })
   })
 
-  $("#remove" + tableIndex).click(function () {
+  $("#remove" + tableIndex).click(function() {
     if (confirm("Are you sure you want to remove " + $(this).parent().parent().children()[0].innerHTML + "?"))
       $(this).parent().parent().remove();
   })
