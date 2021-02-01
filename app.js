@@ -17,27 +17,6 @@ const namesSchema = {
 
 const Name = mongoose.model("Name", namesSchema);
 
-
-//
-// const name1 = new Name({
-//   name: "Jeff Johnson"
-// });
-//
-// const name2 = new Name({
-//   name: "Johnny Jeffseed",
-//   timeLeft: "4:20"
-// });
-//
-// const defNames = [name1, name2];
-//
-// Name.insertMany(defNames, function(err){
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log("Successfully saved default items to namesDB");
-//   }
-// })
-
 // send index.ejs
 app.get("/", function(req, res) {
   res.render("index.ejs");
