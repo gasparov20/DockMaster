@@ -1,5 +1,5 @@
 // set up the socket
-var socket = io.connect('http://localhost:8080');
+var socket = io.connect("https://hidden-garden-29865.herokuapp.com/" + process.env.PORT);
 socket.on("connect", () => {
   console.log("this socket ID = " + socket.id);
 });
