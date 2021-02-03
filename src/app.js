@@ -3,7 +3,7 @@
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+//const io = require('socket.io')(http);
 const idx = require(__dirname + "/idx.js");
 
 const express = require('express'),
