@@ -1,13 +1,17 @@
-const express = require("express");
-const app = express();
+//const express = require("express");
+//const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const idx = require(__dirname + "/idx.js");
 
+const express = require('express'),
+    app = express(),
+    server = require('http').createServer(app),
+    io = require('socket.io').listen(server),
+
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 mongoose.connect("mongodb+srv://andrew:Kenneth727@cluster0.jieef.mongodb.net/namesDB", {
@@ -127,5 +131,5 @@ io.on('connection', function (socket) {
 
 // listen for events
 const server = http.listen(process.env.PORT || 8080, function() {
-  console.log('listening on 8080');
+  console.log("listening on " + process.env.PORT);
 });

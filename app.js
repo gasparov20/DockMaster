@@ -1,10 +1,15 @@
-const express = require("express");
-const app = express();
+//const express = require("express");
+//const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const idx = require(__dirname + "/idx.js");
+
+const express = require('express'),
+    app = express(),
+    server = require('http').createServer(app),
+    io = require('socket.io').listen(server),
 
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
