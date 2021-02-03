@@ -130,6 +130,6 @@ io.on('connection', function (socket) {
 });
 
 // listen for events
-const server = http.listen(process.env.PORT || 8080, function() {
-  console.log("listening on " + process.env.PORT);
-});
+// const server = http.listen(process.env.PORT || 8080, function() {
+//   console.log("listening on " + process.env.PORT);
+// });
