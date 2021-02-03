@@ -3,7 +3,7 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const mongoose = require("mongoose");
-const PORT = process.env.PORT; 
+const PORT = process.env.PORT;
 const idx = require(__dirname + "/idx.js");
 
 app.set('view engine', 'ejs');
@@ -43,6 +43,10 @@ app.get("/index.js", function(req, res) {
 
 // open connection
 io.on('connection', function (socket) {
+
+  socket.on('test', function() {
+    socket.emit('test');
+  })
 
   socket.on('add_data', function() {
     Name.find({}, function (err, found) {

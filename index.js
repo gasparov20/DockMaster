@@ -9,8 +9,10 @@ socket.on("connect", () => {
 $(window).on('load', function() {
   var x = window.performance.timing.domContentLoadedEventEnd- window.performance.timing.navigationStart + "ms";
   console.log("page loaded in " + x);
-  $("#row1").children().first().html("test");
+  console.log("this socket ID = " + socket.id);
+  console.log("didn't touch src");
   socket.emit('add_data');
+  socket.emit('test');
 })
 
 // submit new table item without reload
@@ -19,6 +21,11 @@ $('#addNameForm').submit(function(e) {
   socket.emit('new_name', $('#nameBox').val());
   $('#nameBox').val('');
   return false;
+});
+
+socket.on('test', function() {
+  console.log("test");
+  $("#row1").children.first().html("shooooo");
 });
 
 // append the new name
