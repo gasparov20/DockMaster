@@ -1,11 +1,10 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const http = require('http').Server(app);
+const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const mongoose = require("mongoose");
+const PORT = process.env.PORT || 3000;
 const idx = require(__dirname + "/idx.js");
-const server = require('http').createServer(app);
 
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
@@ -125,7 +124,6 @@ io.on('connection', function (socket) {
   });
 });
 
-// listen for events
-// const server = http.listen(process.env.PORT || 8080, function() {
-//   console.log("listening on " + process.env.PORT);
-// });
+http.listen(PORT,function(){
+    console.log("Listening to port " + PORT);
+});
