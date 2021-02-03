@@ -1,14 +1,16 @@
 const express = require('express');
 const socketIO = require('socket.io');
 const app = express();
-
 const mongoose = require("mongoose");
 const PORT = process.env.PORT;
 const idx = require(__dirname + "/idx.js");
 
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-const io = socketIO(app);
+const server = express()
+  .use((req, res) => res.sendFile("/index.html", { root: __dirname }))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+const io = socketIO(server);
 
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
