@@ -1,0 +1,33 @@
+{
+  "name": "dockmaster",
+  "version": "1.0.0",
+  "description": "DockMaster",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gasparov20/DockMaster.git"
+  },
+  "author": "Andrew Gasparovich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gasparov20/DockMaster/issues"
+  },
+  "homepage": "https://github.com/gasparov20/DockMaster#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.11.14",
+    "socket.io": "^3.1.0",
+    "superheroes": "^3.0.0",
+    "webpack": "^5.19.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.4.0"
+  }
+}
