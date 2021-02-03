@@ -3,7 +3,7 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const mongoose = require("mongoose");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT; 
 const idx = require(__dirname + "/idx.js");
 
 app.set('view engine', 'ejs');
