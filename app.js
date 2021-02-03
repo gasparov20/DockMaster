@@ -10,7 +10,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/namesDB", {
+mongoose.connect("mongodb+srv://andrew:Kenneth727@cluster0.jieef.mongodb.net/namesDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -27,12 +27,13 @@ const Name = mongoose.model("Name", namesSchema);
 // send index.ejs
 app.get("/", function(req, res) {
   Name.find({}, function(err, foundNames) {
-    console.log("foundNames.length = " + foundNames.length);
     res.render("index", {newListItems: foundNames});
     ids = []
     foundNames.forEach(docs => ids.push(Number(docs.id)));
-    idx.setIdx(Math.max(...ids) + 1);
-    console.log("set idx to " + idx.getIdx());
+    if (ids.length === 0)
+      idx.setIdx(1);
+    else
+      idx.setIdx(Math.max(...ids) + 1);
   })
 })
 
@@ -53,6 +54,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('new_name', function(data) {
+    console.log(idx.getIdx());
     const name = new Name({
       id: idx.getIdx(),
       name: data,
