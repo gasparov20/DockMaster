@@ -16,9 +16,9 @@
 
   <div class="container">
 
-    <form id = "addNameForm", action="/" method="POST" id="chatForm">
+    <form id = "addNameForm", action="/" method="POST">
     <input id="nameBox" placeholder="Name on rental contract" autocomplete="on" style="width: 50%; display: inline-block">
-    <button name="addName" class="btn btn-light" style="width: 20%; margin: auto; display: inline-block">Add Group</button>
+    <button type="submit" class="btn btn-light" style="width: 20%; margin: auto; display: inline-block">Add Group</button>
     </form>
 
     <br><br>
@@ -32,6 +32,21 @@
         </tr>
       </thead>
       <tbody id="tableBody">
+      <% for (let i = 0; i < newListItems.length; i++) { %>
+        <tr id='row<%= newListItems[i].id %>'>
+          <td>
+            <%= newListItems[i].name %>
+          <td>
+            <button id='checkOutBtn<%= newListItems[i].id %>' class='btn btn-light'>Check Out</button>
+          </td>
+          <td>
+            <button id='checkInBtn<%= newListItems[i].id %>' class='btn btn-light'>Check In</button>
+          </td>
+          <td>
+            <button id='remove<%= newListItems[i].id %>' class='btn btn-light'>X</button>
+          </td>
+        </tr>
+        <% } %>
       </tbody>
     </table>
   </div>
