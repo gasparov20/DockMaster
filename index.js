@@ -1,6 +1,7 @@
 // set up the socket
 
-var socket = io.connect("https://hidden-garden-29865.herokuapp.com/socket.io/?EIO=4&transport=websocket");
+//var socket = io.connect("https://hidden-garden-29865.herokuapp.com/socket.io/?EIO=4&transport=websocket");
+var socket = io.connect(window.location.hostname);
 socket.on("connect", () => {
   console.log("this socket ID = " + socket.id);
 });
