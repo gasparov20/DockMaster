@@ -5,11 +5,9 @@ const mongoose = require("mongoose");
 const PORT = process.env.PORT;
 const idx = require(__dirname + "/idx.js");
 
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-const server = express()
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-const io = socketIO(server);
+const io = socketIO(app);
 
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
