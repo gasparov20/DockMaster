@@ -7,7 +7,6 @@ const idx = require(__dirname + "/idx.js");
 
 
 const server = express()
-  .use((req, res) => res.sendFile("/index.html", { root: __dirname }))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const io = socketIO(server);
