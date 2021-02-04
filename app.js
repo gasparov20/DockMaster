@@ -1,13 +1,10 @@
 const express = require('express');
-const socketIO = require('socket.io');
 const app = express();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 const mongoose = require("mongoose");
 const PORT = process.env.PORT;
 const idx = require(__dirname + "/idx.js");
-
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-const io = socketIO(app);
 
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
@@ -129,4 +126,8 @@ io.on('connection', function (socket) {
     });
     io.emit('check_in', idx, time);
   });
+});
+
+http.listen(PORT,function(){
+    console.log("Listening to port " + PORT);
 });
