@@ -14,14 +14,14 @@ mongoose.connect("mongodb+srv://andrew:Kenneth727@cluster0.jieef.mongodb.net/nam
   useUnifiedTopology: true
 });
 
-const namesSchema = {
+const nameSchema = {
   id: Number,
   name: String,
   timeLeft: String,
   timeBack: String
 };
 
-const Name = mongoose.model("Name", namesSchema);
+const Name = mongoose.model("Name", nameSchema);
 
 // send index.ejs
 app.get("/", function(req, res) {
@@ -43,10 +43,6 @@ app.get("/index.js", function(req, res) {
 
 // open connection
 io.on('connection', function (socket) {
-
-  socket.on('test', function() {
-    socket.emit('test');
-  })
 
   socket.on('add_data', function() {
     Name.find({}, function (err, found) {

@@ -45,7 +45,6 @@ socket.on('new_name', function(tableIndex, data) {
 // add data
 socket.on('add_data', function (tableIndex, tL, tB) {
   // click listener for remove
-  console.log("hello from add_data");
   $(document).on("click", "#remove" + tableIndex, function(e) {
     if (confirm("Are you sure you want to remove " + $("#row" + tableIndex).children().first().html() + "?")) {
       // emit the id of the row
