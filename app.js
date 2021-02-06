@@ -9,7 +9,7 @@ const idx = require(__dirname + "/idx.js");
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://andrew:Kenneth727@cluster0.jieef.mongodb.net/namesDB", {
+mongoose.connect("mongodb+srv://andrew:kenneth1@cluster0.jieef.mongodb.net/namesDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
