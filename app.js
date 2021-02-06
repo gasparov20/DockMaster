@@ -27,6 +27,7 @@ const Name = mongoose.model("Name", nameSchema);
 app.get("/", function(req, res) {
   Name.find({}, function(err, foundNames) {
     if (!err) {
+      console.log("find returned no err");
       res.render("index", {
         newListItems: foundNames
       });
@@ -37,6 +38,7 @@ app.get("/", function(req, res) {
       else
         idx.setIdx(Math.max(...ids) + 1);
     } else {
+      console.log("find returned err");
       console.log(err);
     }
   })
