@@ -26,21 +26,13 @@ const Name = mongoose.model("Name", namesSchema);
 // send index.ejs
 app.get("/", function(req, res) {
   Name.find({}, function(err, foundNames) {
-    if (!err) {
-      console.log("find returned no err");
-      res.render("index", {
-        newListItems: foundNames
-      });
-      ids = []
-      foundNames.forEach(docs => ids.push(Number(docs.id)));
-      if (ids.length === 0)
-        idx.setIdx(1);
-      else
-        idx.setIdx(Math.max(...ids) + 1);
-    } else {
-      console.log("find returned err");
-      console.log(err);
-    }
+    res.render("index", {newListItems: foundNames});
+    ids = []
+    foundNames.forEach(docs => ids.push(Number(docs.id)));
+    if (ids.length === 0)
+      idx.setIdx(1);
+    else
+      idx.setIdx(Math.max(...ids) + 1);
   })
 })
 
