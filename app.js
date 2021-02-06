@@ -14,14 +14,14 @@ mongoose.connect("mongodb+srv://andrew:Kenneth727@cluster0.jieef.mongodb.net/nam
   useUnifiedTopology: true
 });
 
-const nameSchema = {
+const namesSchema = {
   id: Number,
   name: String,
   timeLeft: String,
   timeBack: String
 };
 
-const Name = mongoose.model("Name", nameSchema);
+const Name = mongoose.model("Name", namesSchema);
 
 // send index.ejs
 app.get("/", function(req, res) {
