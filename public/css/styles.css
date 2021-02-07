@@ -1,3 +1,8 @@
 .footer {
-  color: lightgray
+  color: lightgray;
+}
+
+ul {
+  width: 60%;
+  margin: auto;
 }

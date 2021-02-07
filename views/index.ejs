@@ -22,13 +22,31 @@
     </form>
 
     <br><br>
+
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="argo-tab" data-toggle="tab" href="#argo" role="tab" aria-controls="home" aria-selected="true">Argo</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="gallup-tab" data-toggle="tab" href="#gallup" role="tab" aria-controls="profile" aria-selected="false">Gallup</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="contact" aria-selected="false">All</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="tabContent">
+    <div class="tab-pane fade show active" id="argo" role="tabpanel" aria-labelledby="argo-tab"></div>
+    <div class="tab-pane fade" id="gallup" role="tabpanel" aria-labelledby="gallup-tab"></div>
+    <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab"></div>
+  </div>
+
     <table id="table" class="table table-hover" style="width: 650px; margin: auto">
       <thead>
         <tr>
           <th scope="col">Name</th>
           <th scope="col">Time Left</th>
           <th scope="col">Time Back</th>
-          <th scope="col">-</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody id="tableBody">

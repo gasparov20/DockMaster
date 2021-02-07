@@ -1,8 +1,8 @@
 // production
-var socket = io.connect(window.location.hostname);
+//var socket = io.connect(window.location.hostname);
 
 // local testing
-//var socket = io.connect('/');
+var socket = io.connect('/');
 
 socket.on("connect", () => {
   console.log("connect: this socket ID = " + socket.id);
