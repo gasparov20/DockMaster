@@ -95,6 +95,7 @@ socket.on('add_data', function (tableIndex, tL, tB) {
         socket.emit('check_out_update', tableIndex, $(this).html(), $(this).prev().html());
       });
 
+      // Doesn't work
       $("#checkInCell" + tableIndex).on('focusout', function(e) {
         e.preventDefault();
         socket.emit('check_in_update', tableIndex, $(this).html(), $(this).prev().prev().html());

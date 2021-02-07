@@ -5,11 +5,12 @@ const io = require('socket.io')(http);
 const mongoose = require("mongoose");
 const PORT = process.env.PORT;
 const idx = require(__dirname + "/idx.js");
+const dbpass = require(__dirname + "/dbpass.js");
 
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://andrew:kenneth1@cluster0.jieef.mongodb.net/namesDB", {
+mongoose.connect("mongodb+srv://andrew:" + dbpass.pass + "@cluster0.jieef.mongodb.net/namesDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
