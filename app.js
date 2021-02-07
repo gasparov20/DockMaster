@@ -82,7 +82,7 @@ io.on('connection', function (socket) {
           Name.create(name, function(err) {
             if (!err) {
               console.log("Successfully saved " + idx.getIdx() + " " + data + " to namesDB");
-              io.emit('new_name', idx.getIdx(), "<td contenteditable='true'>" + data + "</td><td id='checkOutCell" + idx.getIdx() + "'><button id='checkOutBtn" + idx.getIdx() + "' class='btn btn-light'>Check Out</button></td><td><button id='checkInBtn" + idx.getIdx() + "' class='btn btn-light'>Check In</button></td><td><button id='remove" + idx.getIdx() + "' class='btn btn-light'>X</button></td></tr>");
+              io.emit('new_name', idx.getIdx(), "<td contenteditable='true'>" + data + "</td><td id='checkOutCell" + idx.getIdx() + "'><button id='checkOutBtn" + idx.getIdx() + "' class='btn btn-light'>Check Out</button></td><td id='checkInCell" + idx.getIdx() + "'><button id='checkInBtn" + idx.getIdx() + "' class='btn btn-light'>Check In</button></td><td><button id='remove" + idx.getIdx() + "' class='btn btn-light'>X</button></td></tr>");
               idx.incIdx();
             } else {
               console.log("error in creating new namesDB document" + err);
