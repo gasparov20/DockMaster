@@ -1,5 +1,6 @@
 // set up the socket
-var socket = io.connect(window.location.hostname);
+//var socket = io.connect(window.location.hostname);
+var socket = io.connect('/');
 socket.on("connect", () => {
   console.log("connect: this socket ID = " + socket.id);
 });
@@ -42,6 +43,11 @@ socket.on('new_name', function(tableIndex, data) {
   setBtnListener("checkInBtn" + tableIndex, tableIndex, 'in');
 });
 
+// update a name
+socket.on('update_name', function(tableIndex, name) {
+  $("#row" + tableIndex).children().first().html(name);
+})
+
 // add data
 socket.on('add_data', function (tableIndex, tL, tB) {
   // click listener for remove
@@ -53,17 +59,43 @@ socket.on('add_data', function (tableIndex, tL, tB) {
     }
   })
 
+  // add focusout listener for name field
+  $("#row" + tableIndex).children().first().on('focusout', function(e) {
+    e.preventDefault();
+    socket.emit('update_name', tableIndex, $(this).html());
+  });
+
   if (tL !== "") {
     if (tB === "") { // on the water
       $("#checkOutBtn" + tableIndex).before(tL);
-      $("#checkOutBtn" + tableIndex).hide();
+      $("#checkOutBtn" + tableIndex).remove();
+      $("#checkOutCell" + tableIndex).prop("contenteditable", "true"); // make time editable
+
+      // focusout listener for checkout time
+      $("#checkOutCell" + tableIndex).on('focusout', function(e) {
+        e.preventDefault();
+        socket.emit('check_out_update', tableIndex, $(this).html(), $(this).prev().html());
+      });
+
       $("#checkInBtn" + tableIndex).show();
       setBtnListener("checkInBtn" + tableIndex, tableIndex, 'in');
     } else { // off the water
       $("#checkOutBtn" + tableIndex).before(tL);
-      $("#checkOutBtn" + tableIndex).hide();
+      $("#checkOutBtn" + tableIndex).remove();
       $("#checkInBtn" + tableIndex).before(tB);
-      $("#checkInBtn" + tableIndex).hide();
+      $("#checkInBtn" + tableIndex).remove();
+      $("#checkInCell" + tableIndex).prop("contenteditable", "true"); // make time editable
+      $("#checkOutCell" + tableIndex).prop("contenteditable", "true"); // make time editable
+
+      $("#checkOutCell" + tableIndex).on('focusout', function(e) {
+        e.preventDefault();
+        socket.emit('check_out_update', tableIndex, $(this).html(), $(this).prev().html());
+      });
+
+      $("#checkInCell" + tableIndex).on('focusout', function(e) {
+        e.preventDefault();
+        socket.emit('check_in_update', tableIndex, $(this).html(), $(this).prev().prev().html());
+      });
     }
   } else { // not yet on water
     $("#checkInBtn" + tableIndex).hide();
@@ -80,16 +112,36 @@ socket.on('remove_name', function(tableIndex) {
 // check out
 socket.on('check_out', function(tableIndex, time) {
   $("#checkOutBtn" + tableIndex).before(time); // add check-out time
-  $("#checkOutBtn" + tableIndex).hide(); // hide the button
-  // show check-in button
-  $("#checkInBtn" + tableIndex).show();
+  $("#checkOutBtn" + tableIndex).remove(); // hide the button
+  $("#checkOutCell" + tableIndex).prop("contenteditable", "true"); // make time editable
+
+  $("#checkOutCell" + tableIndex).on('focusout', function(e) {
+    e.preventDefault();
+    socket.emit('check_out_update', tableIndex, $(this).html(), $(this).prev().html());
+  });
+
+  $("#checkInBtn" + tableIndex).show(); // show check-in button
 });
+
+socket.on('check_out_update', function(tableIndex, time) {
+  $("#checkOutCell" + tableIndex).html(time);
+})
 
 // check in
 socket.on('check_in', function(tableIndex, time) {
   $("#checkInBtn" + tableIndex).before(time); // add check-in time
-  $("#checkInBtn" + tableIndex).hide(); // hide the button
+  $("#checkInBtn" + tableIndex).remove(); // hide the button
+  $("#checkInCell" + tableIndex).prop("contenteditable", "true"); // make time editable
+
+  $("#checkInCell" + tableIndex).on('focusout', function(e) {
+    e.preventDefault();
+    socket.emit('check_in_update', tableIndex, $(this).html(), $(this).prev().html());
+  });
 });
+
+socket.on('check_in_update', function(tableIndex, time) {
+  $("#checkInCell" + tableIndex).html(time);
+})
 
 // set button listener (for code readability)
 function setBtnListener(id, tableIndex, inout) {

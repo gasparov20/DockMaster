@@ -52,8 +52,19 @@ io.on('connection', function (socket) {
     })
   });
 
+  socket.on('update_name', function(idx, name2) {
+    Name.findOneAndUpdate({id: idx}, {name: name2}, {upsert: true, useFindAndModify: false},
+      function(err) {
+      if (!err) {
+        console.log("using " + name2 + " as name for ID " + idx + " in namesDB");
+      } else {
+        console.log("error: " + err);
+      }
+    });
+    io.emit('update_name', idx, name2);
+  })
+
   socket.on('new_name', function(data) {
-    console.log(idx.getIdx());
     const name = new Name({
       id: idx.getIdx(),
       name: data,
@@ -67,11 +78,10 @@ io.on('connection', function (socket) {
           console.log(data + " already exists in namesDB");
         }
         else { // create document in namesDB
-          console.log("create() called");
           Name.create(name, function(err) {
             if (!err) {
               console.log("Successfully saved " + idx.getIdx() + " " + data + " to namesDB");
-              io.emit('new_name', idx.getIdx(), "<td>" + data + "</td><td><button id='checkOutBtn" + idx.getIdx() + "' class='btn btn-light'>Check Out</button></td><td><button id='checkInBtn" + idx.getIdx() + "' class='btn btn-light'>Check In</button></td><td><button id='remove" + idx.getIdx() + "' class='btn btn-light'>X</button></td></tr>");
+              io.emit('new_name', idx.getIdx(), "<td contenteditable='true'>" + data + "</td><td id='checkOutCell" + idx.getIdx() + "'><button id='checkOutBtn" + idx.getIdx() + "' class='btn btn-light'>Check Out</button></td><td><button id='checkInBtn" + idx.getIdx() + "' class='btn btn-light'>Check In</button></td><td><button id='remove" + idx.getIdx() + "' class='btn btn-light'>X</button></td></tr>");
               idx.incIdx();
             } else {
               console.log("error in creating new namesDB document" + err);
@@ -107,6 +117,18 @@ io.on('connection', function (socket) {
     io.emit('check_out', idx, time);
   });
 
+  socket.on('check_out_update', function(idx, time, name2) {
+    Name.findOneAndUpdate({id: idx}, {timeLeft: time}, {upsert: true, useFindAndModify: false},
+      function(err) {
+      if (!err) {
+        console.log("Successfully added " + time + " to time-left for " + name2 + " in namesDB");
+      } else {
+        console.log("error: " + err);
+      }
+    });
+    io.emit('check_out_update', idx, time);
+  });
+
   socket.on('check_in', function(idx, time, name2) {
     Name.findOneAndUpdate({
       id: idx }, {
@@ -122,8 +144,20 @@ io.on('connection', function (socket) {
     });
     io.emit('check_in', idx, time);
   });
+
+  socket.on('check_in_update', function(idx, time, name2) {
+    Name.findOneAndUpdate({id: idx}, {timeBack: time}, {upsert: true, useFindAndModify: false},
+      function(err) {
+      if (!err) {
+        console.log("Successfully added " + time + " to time-back for " + name2 + " in namesDB");
+      } else {
+        console.log("error: " + err);
+      }
+    });
+    io.emit('check_in_update', idx, time);
+  });
 });
 
-http.listen(PORT,function(){
+http.listen(PORT || 8080, function(){
     console.log("Listening to port " + PORT);
 });
